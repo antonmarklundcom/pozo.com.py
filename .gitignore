@@ -1,0 +1,4 @@
+node_modules/
+*.zip
+private/
+.DS_Store

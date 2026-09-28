@@ -1,0 +1,45 @@
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+
+# Hostinger production: force HTTPS and the canonical non-www host.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\.pozo\.com\.py$ [NC]
+RewriteRule ^ https://pozo.com.py%{REQUEST_URI} [R=301,L]
+
+# Permanent redirects from the first URL structure.
+RewriteRule ^pozos-artesianos/precio-por-metro/?$ /servicios/precio-pozo/ [R=301,L]
+RewriteRule ^pozos-artesianos/?$ /servicios/artesiano/ [R=301,L]
+RewriteRule ^pozos-ciegos/?$ /servicios/pozo-ciego/ [R=301,L]
+RewriteRule ^desague-pozo-ciego/?$ /servicios/desague/ [R=301,L]
+RewriteRule ^pozo-ciego-lleno/?$ /servicios/pozo-lleno/ [R=301,L]
+RewriteRule ^pozos-septicos/?$ /servicios/septico/ [R=301,L]
+RewriteRule ^tratamiento-de-agua/?$ /servicios/agua/ [R=301,L]
+RewriteRule ^desague-san-lorenzo/?$ /zonas/san-lorenzo/ [R=301,L]
+RewriteRule ^desague-mariano-roque-alonso/?$ /zonas/mra/ [R=301,L]
+
+# Short aliases matching common ad-display wording.
+RewriteRule ^pozo/artesiano/?$ /servicios/artesiano/ [R=301,L]
+RewriteRule ^pozo/ciego/?$ /servicios/pozo-ciego/ [R=301,L]
+RewriteRule ^pozo/septico/?$ /servicios/septico/ [R=301,L]
+
+# Deny direct web access to non-public directories.
+RedirectMatch 404 ^/config/
+RedirectMatch 404 ^/docs/
+RedirectMatch 404 ^/tools/
+RedirectMatch 404 ^/source-images/
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://pozo.com.py/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://pozo.com.py/servicios/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/servicios/artesiano/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/servicios/precio-pozo/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/servicios/pozo-ciego/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/servicios/desague/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/servicios/pozo-lleno/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/servicios/septico/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/servicios/agua/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/zonas/san-lorenzo/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/zonas/mra/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/zonas/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/contacto/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pozo.com.py/privacidad/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>
