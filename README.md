@@ -63,3 +63,11 @@ The eight WebP files are optimized versions of the supplied Higgsfield images. D
 ## Legal note
 
 The privacy page describes the actual lead and attribution flow, including the Resend email notification. It references Ley N.º 6534/2020 and the deferred entry into force stated in article 57 of Ley N.º 7593/2025. Obtain professional review when the operating legal entity or processing practices change.
+
+## Hostinger Git deployment
+
+In hPanel → Websites → Git, add repository `https://github.com/antonmarklundcom/pozo.com.py`, branch `main`, install path empty (= `public_html`). Use Auto-deployment via the webhook shown in hPanel, added under GitHub → Settings → Webhooks. Generated HTML is committed, so no build step is needed on the server; run `node build.mjs` locally, commit, push.
+
+- `.htaccess` blocks web access to `.git`, `config/`, `docs/`, `tools/`, `build.mjs`, `site.config.mjs` and the README.
+- Secrets never live in the repo: put `domains/pozo.com.py/private/pozo.php` on the server (template in `docs/pozo-private.example.php`).
+- Backup: `python tools/package-hostinger.py` builds a deploy-only ZIP one folder above the project.

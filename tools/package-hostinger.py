@@ -6,7 +6,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 WORKSPACE_ROOT = PROJECT_ROOT.parent
-ZIP_PATH = WORKSPACE_ROOT / "pozo-com-py-hostinger-ready-2026-09-02.zip"
+ZIP_PATH = WORKSPACE_ROOT / "pozo-com-py-hostinger-ready-2026-09-28.zip"
 
 DEPLOY_DIRS = ("assets", "config", "contacto", "gracias", "servicios", "zonas", "privacidad")
 ROOT_FILES = (".htaccess", "404.html", "contacto.php", "favicon.svg", "index.html", "robots.txt", "sitemap.xml")
