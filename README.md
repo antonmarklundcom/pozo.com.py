@@ -1,3 +1,26 @@
+
+## Persistent VenderCRM setup
+
+Requires PHP 7.4+. New CRM setup uses only `VENDERCRM_URL` (HTTPS origin,
+without `/api/v1/leads`) and `VENDERCRM_API_KEY`. Copy
+`vendercrm.private.example.php` manually to `../private/vendercrm.php` outside
+this site's document/deployment root, fill both values once on the server and
+restrict permissions to the PHP account. Keep the sibling private directory
+outside every redeploy replacement; never overwrite/reset that file or commit it.
+Alternatively configure both canonical variables in PHP's process environment.
+For another hosting layout, use an absolute `VENDERCRM_CONFIG_FILE` outside
+the actual document root. Verify the actual root and deployed branch first.
+Uploading a `.env` file alone does not populate PHP's environment.
+
+Canonical settings win over old CRM values; canonical environment and private
+file must agree when both are present. Partial canonical pairs and unsafe
+paths fail without blending old credentials. With no canonical setup, existing
+legacy settings and inactive behavior remain available. Non-CRM settings,
+notification requirements, form enablement, storage, transport and recovery
+keep their existing loaders and gates. DNS names must resolve to public addresses.
+Run `php tests/vendercrm-config.php` for offline synthetic configuration checks.
+Legacy local HTTP mocks remain limited to PHP's built-in development server and `http://127.0.0.1`. Canonical production configuration always requires HTTPS. Configuration errors skip only CRM and preserve WhatsApp/Resend continuation.
+
 # Pozo.com.py
 
 HTML/PHP website prepared for Hostinger shared hosting. Requires PHP 8.1+ (uses `declare(strict_types=1)`, `never` return types and `str_starts_with`).
@@ -31,10 +54,7 @@ Node.js is only used locally to regenerate pages and `config/site.generated.php`
 
 The form posts to the site's own `contacto.php`; the browser never receives a CRM key. The handler includes phone validation, consent, a honeypot, first-touch campaign attribution, a stable hourly idempotency key and failure logging. A successful form submission is stored in VenderCRM, a notification email is sent through Resend, and the visitor always continues to WhatsApp with the enquiry prefilled.
 
-The CRM base URL defaults to `https://crm.clientes.com.py` (via the generated `config/site.generated.php`). To activate CRM delivery, store the site key server-side using either:
-
-- Environment variable: `VENDERCRM_API_KEY=the-unique-key-created-for-pozo.com.py`
-- Private file: copy `docs/pozo-private.example.php` to `domains/pozo.com.py/private/pozo.php`, outside `public_html`, and fill in `vendercrm_key` (and the Resend fields below). The legacy `domains/pozo.com.py/private/vendercrm.php` from v1 is still honoured if present.
+New CRM setup uses the persistent canonical pair described above. Existing legacy private files and key-only environment installations remain supported as fallback. Key-only fallback uses the trusted generated CRM base, while every new setup supplies both fields.
 
 Do not put any key in HTML, JavaScript, `.htaccess`, the public website ZIP or this repository. `.htaccess` also denies direct web access to `/config/`, `/docs/`, `/tools/` and `/source-images/`. Until the key is present, the handler redirects the prepared enquiry to WhatsApp. After configuration, test a real submission in VenderCRM Contactos, Pipeline and Sitios, then submit it twice to confirm no duplicate deal is created.
 

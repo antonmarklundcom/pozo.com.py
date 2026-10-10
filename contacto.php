@@ -161,25 +161,11 @@ if (is_readable($pozoConfigPath)) {
 }
 
 $legacyVenderCrmPath = (string)(getenv('VENDERCRM_CONFIG') ?: dirname($documentRoot) . '/private/vendercrm.php');
-if (empty($privateConfig['vendercrm_url']) && empty($privateConfig['vendercrm_key']) && is_readable($legacyVenderCrmPath)) {
-    $legacyConfig = require $legacyVenderCrmPath;
-    if (is_array($legacyConfig)) {
-        $privateConfig['vendercrm_url'] = $privateConfig['vendercrm_url'] ?? ($legacyConfig['url'] ?? null);
-        $privateConfig['vendercrm_key'] = $privateConfig['vendercrm_key'] ?? ($legacyConfig['api_key'] ?? null);
-    }
-}
-
-$crmUrl = rtrim((string)(getenv('VENDERCRM_URL') ?: ($privateConfig['vendercrm_url'] ?? $crmDefaultUrl)), '/');
-$apiKey = (string)(getenv('VENDERCRM_API_KEY') ?: ($privateConfig['vendercrm_key'] ?? ''));
-
-// The CRM URL must be https in production. The one exception: a local test
-// server on 127.0.0.1 (php -S ... with VENDERCRM_URL pointing at a stub) may
-// use http so the handler can be tested end to end without a real CRM.
-$crmUrlHost = parse_url($crmUrl, PHP_URL_HOST);
-$crmUrlScheme = parse_url($crmUrl, PHP_URL_SCHEME);
-$isLocalTestHost = $crmUrlHost === '127.0.0.1' && $crmUrlScheme === 'http';
-$validCrmUrl = filter_var($crmUrl, FILTER_VALIDATE_URL) && ($crmUrlScheme === 'https' || $isLocalTestHost);
-
+require_once __DIR__ . '/lib/site-vendercrm.php';
+$crmSettings = pozo_crm_settings(__DIR__, $privateConfig, $crmDefaultUrl, $legacyVenderCrmPath, null, PHP_SAPI === 'cli-server');
+$crmUrl = $crmSettings['url'];
+$apiKey = $crmSettings['key'];
+$validCrmUrl = $crmSettings['valid'];
 $resendApiKey = (string)(getenv('RESEND_API_KEY') ?: ($privateConfig['resend_key'] ?? ''));
 $resendFrom = (string)(getenv('RESEND_FROM') ?: ($privateConfig['resend_from'] ?? ''));
 $resendApiBase = rtrim((string)(getenv('RESEND_API_BASE') ?: RESEND_API_BASE_DEFAULT), '/');
