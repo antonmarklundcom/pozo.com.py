@@ -15,6 +15,7 @@ if (Test-Path -LiteralPath $ZipPath) {
 $deployRoots = @(
     'assets',
     'config',
+    'lib',
     'contacto',
     'gracias',
     'servicios',
@@ -22,7 +23,7 @@ $deployRoots = @(
     'privacidad'
 )
 
-$rootFiles = @('.htaccess', '404.html', 'contacto.php', 'favicon.svg', 'index.html', 'robots.txt', 'sitemap.xml')
+$rootFiles = @('.htaccess', '404.html', 'contacto.php', 'vendercrm.private.example.php', 'favicon.svg', 'index.html', 'robots.txt', 'sitemap.xml')
 
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
